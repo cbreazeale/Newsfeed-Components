@@ -126,9 +126,9 @@ const data = [
 
 // console.log('hello')
 function articleMaker(article) {
-  const parent = document.querySelector('div.articles')
-  const vals = Object.values(article)
 
+  // const vals = Object.values(article)
+  const newArt = document.createElement('div')
   const title = document.createElement('h2');
   const day = document.createElement('p');
   const para1 = document.createElement('p');
@@ -138,27 +138,31 @@ function articleMaker(article) {
   const btn = document.createElement('span');
   btn.textContent = '+'
 
-  title.textContent = vals[0];
-    parent.appendChild(title)
-  day.textContent = vals[1];
-    parent.appendChild(day)
-  para1.textContent = vals[2];
-    parent.appendChild(para1)
-  para2.textContent = vals[3];
-    parent.appendChild(para2)
-  para3.textContent = vals[4];
-    parent.appendChild(para3)
-  //  parent.appendChild(btn)
-  parent.appendChild(btn)
+  title.textContent = article.title
+  day.textContent = article.date
+  para1.textContent = article.firstParagraph
+  para2.textContent = article.secondParagraph
+  para3.textContent = article.thirdParagraph
+
+  newArt.classList.add('article')
+  day.classList.add('date')
   btn.classList.add('expandButton')
 
+
   btn.addEventListener('click', e => {
-    const container = document.querySelector('div .article')
-    container.classList.add('article-open')
+    newArt.classList.toggle('article-open')
+
   })
-  return btn
+
+  newArt.appendChild(title)
+  newArt.appendChild(day)
+  newArt.append(para1,para2,para3)
+  newArt.appendChild(btn)
+
+  return newArt
 }
 
 data.forEach((article) => {
-  const articleComponent = articleMaker(article)
+  const articles = document.querySelector('.articles')
+  articles.appendChild(articleMaker(article))
 })
